@@ -1,0 +1,27 @@
+.data {
+  color: green;
+}
+
+td {
+  font-size: 14px;
+}
+
+[data-validservice="Active"] {
+  background-color: green;
+}
+
+[data-validservice="Expired"] {
+  background-color: red;
+}
+
+span.validity {
+  color: white;
+  border: 2px;
+  /* border-radius: 20%; */
+  padding: 4px;
+}
+
+.bug-report {
+  display: block;
+  margin: 4px 0;
+}

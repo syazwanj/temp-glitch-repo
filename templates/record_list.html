@@ -1,0 +1,94 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0"> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+  <button onclick="copyTable()" class="btn btn-default btn-block">Copy</button>
+  <div id="container-div">
+  {% if record|length > 1 %}
+    <p>Multiple matching records found.</p>
+  {% endif %}
+  <table class="table table-hover" id="container-table">
+    {% if record %}
+    {% for rec in record %}
+    <tr>
+      <td>Service Validity:</td>
+      <td><span class=validity data-validservice={{validity[loop.index0]}}>{{validity[loop.index0]}}</span></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    <tr>
+      <td>Serial No.:</td>
+      <td>{{serial}}</td>
+    </tr>
+    {% if record %}
+    {% for rec in record %}
+    <tr>
+      <td>Contract No.:</td>
+      <td>{{rec['fields']['Contract Number']}}</td>
+    </tr>
+    <tr>
+      <td>Service Start-date:</td>
+      <td>{{rec['fields']['Service Start-date']}}</td>
+    </tr>
+    <tr>
+      <td>Service End-date:</td>
+      <td>{{rec['fields']['Service End-date']}}</td>
+    </tr>
+    {% for field in rec['fields'] %}
+    <tr>
+      <td>{{field}}</td>
+      <td>{{rec['fields'][field] }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td>Record Link:</td>
+      <td><a href={{rec['url']}} target="_blank">🔗 Link</a></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </table>
+  {% if not record %}
+  <p>No matching record found.</p>
+  {% endif %}
+  <a href={{ url_for('await_user_input', app_guid=app_guid, origin=origin, token=token ) }} class="btn btn-default btn-block">Return</a>
+  <p class="bug-report"><a href="#">Report a bug</a></p>
+  </div>
+  <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+  <script>
+    // Initialise Apps framework client. See also:
+    // https://developer.zendesk.com/apps/docs/developer-guide/getting_started
+    // var client = ZAFClient.init();
+    // var contentHeight = document.getElementById("container-div").offsetHeight;
+    // console.log("content height")
+    // console.log(contentHeight)
+    // console.log("now in record_list");
+    // console.log(client);
+    // try{
+    //   console.log(client.invoke('resize', { width: '100%', height: contentHeight +100 }));
+    //   console.log(client.invoke('notify', "Great success").then(() => {console.log("i did it")}, () => {console.log("i failed :(")}));
+    //   console.log("that worked")
+    // }
+    //   catch{
+    //     console.log("that didnt work")
+    //   }
+    // console.log("resized in record list!!")
+    const action = "resize"
+    const contentHeight = document.getElementById("container-div").offsetHeight;
+  </script>
+      
+      <script>
+      function copyTable() {
+        var tableHtml = document.getElementById("container-div").innerHTML;
+        var tempInput = document.createElement("textarea");
+        tempInput.value = tableHtml;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        alert("Table copied to clipboard!");
+      }
+      </script>
+  <script src="js/main.js"></script>
+</body>

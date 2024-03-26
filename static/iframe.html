@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--   See Using Zendesk Garden:
+    https://developer.zendesk.com/apps/docs/developer-guide/setup#using-zendesk-garden
+    https://garden.zendesk.com/css-components/bedrock/
+    https://garden.zendesk.com/css-components/utilities/typography/
+   -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0">
+  <link ref="stylesheet" href="./main.css">
+</head>
+<style>
+  .data {
+    color:green;
+  }
+  #example td {
+    padding-top: 2px;
+  }
+</style>
+<body>
+  <p class="generic-text">Please input:</p>
+  <div class="container">
+    <form class="input-form">
+      <label class="input-label" for="contract-num-input">Contract No.:</label>
+      <input type="text" name="contract-num" id="contract-num-input">
+      <label class="input-label" for="serial-num-input">Serial No.:</label>
+      <input type="text" name="serial-num" id="serial-num-input">
+      <input type="submit" id="submit-button-input">
+    </form>
+  </div>
+  <div class="container" id="example"></div>
+  <script id="requester-template" type="text/x-handlebars-template">
+    <table>
+      <tr>
+        <td>Customer:</td>
+        <td class="data">{{name}}</td>
+      </tr>
+      <tr>
+        <td>ID:</td>
+        <td class="data">{{id}}</td>
+      </tr>
+      <tr>
+        <td>Tags:</td>
+        <td class="data">{{#each tags}}{{this}}{{/each}}</td>
+      </tr>
+      <tr>
+        <td>Created:</td>
+        <td class="data">{{created_at}}</td>
+      </tr>
+      <tr>
+        <td>Last login:</td>
+        <td class="data">{{last_login_at}}</td>
+      </tr>
+    </table>
+  </script>
+  <script id="error-template" type="text/x-handlebars-template">
+    <p>{{status}} - {{statusText}} error. Please report a bug at the link below.</p>
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@4.3.3/dist/handlebars.min.js"></script>
+  <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+  <script src="main.js" type="text/javascript"></script>
+</body>
+<footer>
+  <a href="#" target="_blank">Report bug</a>
+</footer>
+</html>

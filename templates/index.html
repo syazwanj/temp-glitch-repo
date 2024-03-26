@@ -1,0 +1,49 @@
+<head>
+  <link href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-bedrock@7.0.21,npm/@zendeskgarden/css-utilities@4.3.0"> -->
+</head>
+<style>
+
+</style>
+<body>
+  <div class="container" id="container-div">
+    <p class="generic-text">Please input:</p>
+    <form class="input-form" method="post" action="{{ url_for('await_user_input', origin=origin, app_guid=app_guid, token=token) }}">
+      <table class="table">
+        <tr>
+          <td>
+            <label class="input-label" for="contract-num-input">Contract No.:</label>
+          </td>
+          <td>
+            <input type="text" name="contract-num" id="contract-num-input">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="input-label" for="serial-num-input">Serial No.:</label>
+          </td>
+          <td>
+            <input type="text" name="serial-num" id="serial-num-input" required>
+          </td>
+        </tr>
+      </table>
+      <input type="submit" class="btn btn-default btn-block" value="Search">
+    </form>
+    <p class="bug-report"><a href="#">Report a bug</a></p>
+  </div>
+  <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+  <script>
+    // Initialise Apps framework client. See also:
+    // https://developer.zendesk.com/apps/docs/developer-guide/getting_started
+    // var client = ZAFClient.init();
+    // var contentHeight = document.getElementById("container-div").offsetHeight;
+    // console.log("now in index");
+    // console.log(client);
+    // client.invoke('resize', { width: '100%', height: contentHeight });
+    // console.log("resized!!")
+    const action = "resize"
+    const contentHeight = document.getElementById("container-div").offsetHeight;
+  </script>
+  <script src="js/main.js"></script>
+</body>
